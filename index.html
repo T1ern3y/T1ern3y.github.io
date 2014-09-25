@@ -7,10 +7,26 @@
 
 	<body ng-app="blogApp">
 	<ul ng-controller="blogListCtrl">
-		<li class="post" ng-repeat="post in posts">
+		<li ng-repeat="post in posts">
 			<h3>{{post.title}}</h3>
 			<p>{{post.content}}</p>
 		</li>
 	</ul>
+
+	<ul ng-controller="indexCtrl">
+		<li>{{index.title}}</li>
+		<li>{{index.body}}</li>
+	</ul>
+
+	<script>
+		angular.module('blogApp').controller('indexCtrl', ['$scope', '$http', function($scope,$http){
+			$http({
+				method:'GET',
+				url: '/data.json'
+			}).success(function(data){
+				$scope.index = data;
+			});
+		}]);
+	</script>
 	</body>
 </html>
